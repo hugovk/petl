@@ -41,7 +41,7 @@ class Comparable:
                 and isinstance(other, (bool, int, float)):
             return False
 
-        # binary < unicode
+        # bytes < str
         if isinstance(obj, str) and isinstance(other, bytes):
             return False
         if isinstance(obj, bytes) and isinstance(other, str):
@@ -53,7 +53,7 @@ class Comparable:
 
         except TypeError:
             # fall back to comparing type names
-            return _typestr(obj) < _typestr(other)
+            return type(obj).__name__ < type(other).__name__
 
     def __eq__(self, other):
         if isinstance(other, Comparable):

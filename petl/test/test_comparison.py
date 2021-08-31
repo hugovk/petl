@@ -108,11 +108,7 @@ def test_comparable_datetime():
     d = [dt(hour=12), None, dt(hour=3), 'b', True, b'ccc', False, b'aa', -1,
          3.4]
     a = sorted(d, key=Comparable)
-    # N.B., because bytes and unicode type names have changed in PY3,
-    # petl uses PY2 type names to try and achieve consistent behaviour across
-    # versions, i.e., 'datetime' < 'str' < 'unicode' rather than 'bytes' <
-    # 'datetime' < 'str'
-    e = [None, -1, False, True, 3.4, dt(hour=3), dt(hour=12), b'aa', b'ccc',
+    e = [None, -1, False, True, 3.4, b'aa', b'ccc', dt(hour=3), dt(hour=12),
          'b']
     eq_(e, a)
 
@@ -170,7 +166,7 @@ def test_comparable_nested():
          True,
          3.4,
          dt(hour=12),
-         (dt(hour=3), 'b'),
          (b'aa', -1),
-         [b'aa', False]]
+         [b'aa', False],
+         (dt(hour=3), 'b')]
     eq_(e, a)
